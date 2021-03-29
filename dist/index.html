@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Calculator</title>
+        <meta charset="UTF-8">
+        <meta name="description" content="Open Source Calculator">
+        <meta name="keywords" content="HTML, CSS, JavaScript, TypeScript">
+        <link rel="stylesheet" href="index.css">
+    </head>
+    <body>
+        <div class="container">
+            <!-- Mathematical Operation Type Drop Down List-->
+            <label>Mathematical Operation Type</label>
+            <select id="op-type" name="op-type">
+                <option default>Two's complement</option>
+            </select>
+
+            <!-- Calculation Control Field -->
+            <label>Input Base Type</label>
+            <select id="input-type" name="input-type">
+                <option default>Binary</option>
+                <option>Octal</option>
+                <option>Hexadecimal</option>
+                <option>Decimal</option>
+            </select>
+
+            <label>Output Base Type</label>
+            <select id="output-type" name="output-type">
+                <option default>Binary</option>
+                <option>Octal</option>
+                <option>Hexadecimal</option>
+                <option>Decimal</option>
+            </select>
+
+            <form id="bit-size" class="bit-size">
+                <input type="text" name="in_bit_len"/>
+                <input type="text" name="out_bit_len"/>
+            </form>
+
+            <!-- Calculation Data Field -->
+            <form class="calc-inputs">
+                <input id="lhs-input" type="text" name="lhs"/>
+                <input id="rhs-input" type="text" name="rhs"/>
+            </form>
+
+            <!-- Calculation Action Field -->
+            <form class="calc-actions">
+                <button id="add-btn">+</button>
+                <button id="subtract-btn">-</button>
+                <button id="mod-2-btn">modulo 2</button>
+            </form>
+        </div>
+
+        <script src="bundle.js" type="text/javascript"></script>
+    </body>
+</html>
