@@ -4,6 +4,11 @@
  */
 
 import {bit_mask} from './util';
+import {HandlerPacket} from './lib_h';
+
+function handler(packet: HandlerPacket): void {
+  // TODO: fill the function handler
+}
 
 /**
  * Perform addition of two numbers of certain bit length and return the result 
@@ -136,9 +141,7 @@ function atoi(input: string, bit_len: number, type: number): number {
 }
 
 export default {
-  add,
-  subtract,
-  modulo_2,
+  handler,
   itoa,
   atoi
 };
