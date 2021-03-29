@@ -95,9 +95,9 @@ function itoa(input: number, bit_len: number, signed: boolean, type: number): st
       let abs_value: number = (input ^ mask) + 1;
       return '-' + abs_value.toString(type);
     }
-  } else {
-    return input.toString(type);
   }
+    
+  return input.toString(type);
 }
 
 /**
@@ -134,3 +134,11 @@ function atoi(input: string, bit_len: number, type: number): number {
 
   return value;
 }
+
+export default {
+  add,
+  subtract,
+  modulo_2,
+  itoa,
+  atoi
+};
