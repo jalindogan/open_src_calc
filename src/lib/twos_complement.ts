@@ -6,8 +6,126 @@
 import {bit_mask} from './util';
 import {HandlerPacket} from './lib_h';
 
-function handler(packet: HandlerPacket): void {
-  // TODO: fill the function handler
+function handler(packet: HandlerPacket, output: Element): void {
+  let lhsInput: number;
+  let rhsInput: number;
+  let bitSize: number;
+  let result: number;
+
+  /* Check bit size format */
+  if (!packet.bitSize.match(/^[0-9]+$/)) {
+    output.innerHTML = 'Bit size is not a valid number.';
+    return;
+  }
+
+  bitSize = parseInt(packet.bitSize, 10);
+
+  /* Type check input */
+  switch (packet.inType) {
+    case 'Binary':
+      if (!packet.lhsInput.match(/^-?[01]+$/)) {
+        /* Left hand side input is not a valid binary number */
+        output.innerHTML = 'Left hand side input is not a valid binary number.';
+        return;
+      }
+
+      if (!packet.rhsInput.match(/^-?[01]+$/)) {
+        /* Left hand side input is not a valid binary number */
+        output.innerHTML = 'Right hand side input is not a valid binary number.';
+        return;
+      }
+
+      /* Conversion */
+      lhsInput = atoi(packet.lhsInput, bitSize, 2);
+      rhsInput = atoi(packet.rhsInput, bitSize, 2);
+      break;
+    case 'Octal':
+      if (!packet.lhsInput.match(/^-?[0-7]+$/)) {
+        /* Left hand side is not a valid octal number */
+        output.innerHTML = 'Left hand side input is not a valid octal number.';
+        return;
+      }
+
+      if (!packet.rhsInput.match(/^-?[0-7]+$/)) {
+        /* Left hand side is not a valid octal number */
+        output.innerHTML = 'Right hand side input is not a valid octal number.';
+        return;
+      }
+
+      /* Conversion */
+      lhsInput = atoi(packet.lhsInput, bitSize, 8);
+      rhsInput = atoi(packet.rhsInput, bitSize, 8);
+      break;
+    case 'Hexadecimal':
+      if (!packet.lhsInput.match(/^-?[0-9a-fA-F]+$/)) {
+        /* Left hand side is not a valid octal number */
+        output.innerHTML = 'Left hand side input is not a valid hexadecimal number.';
+        return;
+      }
+
+      if (!packet.rhsInput.match(/^-?[0-9a-fA-F]+$/)) {
+        /* Left hand side is not a valid octal number */
+        output.innerHTML = 'Right hand side input is not a valid hexadecimal number.';
+        return;
+      }
+
+      /* Conversion */
+      lhsInput = atoi(packet.lhsInput, bitSize, 16);
+      rhsInput = atoi(packet.rhsInput, bitSize, 16);
+      break;
+    case 'Decimal':
+      if (!packet.lhsInput.match(/^-?[0-9]+$/)) {
+        /* Left hand side is not a valid octal number */
+        output.innerHTML = 'Left hand side input is not a valid decimal number.';
+        return;
+      }
+
+      if (!packet.rhsInput.match(/^-?[0-9]+$/)) {
+        /* Left hand side is not a valid octal number */
+        output.innerHTML = 'Right hand side input is not a valid decimal number.';
+        return;
+      }
+
+      /* Conversion */
+      lhsInput = atoi(packet.lhsInput, bitSize, 10);
+      rhsInput = atoi(packet.rhsInput, bitSize, 10);
+      break;
+    default:
+      return;
+  }
+
+  /* Perform calculation */
+  switch (packet.actType) {
+    case 'add':
+      result = add(lhsInput, rhsInput, bitSize, false);
+      break;
+    case 'subtract':
+      result = subtract(lhsInput, rhsInput, bitSize, false);
+      break;
+    case 'mod-2':
+      result = modulo_2(lhsInput, rhsInput, bitSize);
+      break;
+    default:
+      return;
+  }
+
+  /* Convert to string and output */
+  switch (packet.outType) {
+    case 'Binary':
+      output.innerHTML = itoa(result, bitSize, false, 2);
+      break;
+    case 'Octal':
+      output.innerHTML = itoa(result, bitSize, false, 8);
+      break;
+    case 'Hexadecimal':
+      output.innerHTML = itoa(result, bitSize, false, 16);
+      break;
+    case 'Decimal':
+      output.innerHTML = itoa(result, bitSize, false, 10);
+      break;
+    default:
+      return;
+  }
 }
 
 /**
