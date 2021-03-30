@@ -25,20 +25,20 @@ export default function (event: Event): void {
 
   if (event && opType && inType && outType && bitSize && lhsInput && rhsInput) {
     /* All variables are not null */
-      /* Build handler packet */
-      let packet: HandlerPacket = {
-        opType: (<HTMLInputElement>opType).value,
-        inType: (<HTMLInputElement>inType).value,
-        outType: (<HTMLInputElement>outType).value,
-        bitSize: (<HTMLInputElement>bitSize).value,
-        lhsInput: (<HTMLInputElement>lhsInput).value,
-        rhsInput: (<HTMLInputElement>rhsInput).value,
-        actType: (<Element>event.target).getAttribute('name') as string
-      }
+    /* Build handler packet */
+    let packet: HandlerPacket = {
+      opType: (<HTMLInputElement>opType).value,
+      inType: (<HTMLInputElement>inType).value,
+      outType: (<HTMLInputElement>outType).value,
+      bitSize: (<HTMLInputElement>bitSize).value,
+      lhsInput: (<HTMLInputElement>lhsInput).value,
+      rhsInput: (<HTMLInputElement>rhsInput).value,
+      actType: (<Element>event.target).getAttribute('name') as string
+    }
 
-    switch (opType.innerHTML) {
+    switch (packet.opType) {
       case "Two's complement":
-        tc.handler(packet);
+        tc.handler(packet, <Element>document.getElementById('result'));
         break;
       default:
         break;
